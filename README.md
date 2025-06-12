@@ -7,13 +7,14 @@ Prover is intended to generates ZK Proofs that attest to roll-up.
 - Running this activity didn't guarantee you an Airdrop/incentivized activity. Do this as an Hobby! 
 - Use different wallet if you are running Sequncer Nodes, it's not recommended to use the same wallet because there might be a Nonce Issue if both Prover and Sequencer node submits Txs at the same time. Although there is some of node runner still use the same wallet and it still work, it's better to stay on the safe side.
 
-## Hardware Minimum Requirements
+### Hardware Minimum Requirements
 **RAM** 96 GB
 **CPU** 32 Cores
 **DISK** 1 TB SSD
 You need that minimum specs, don't go lower spec from that because likely you will face an **Error Stopping job due to deadline hit** and **Error: Epoch proving failed: Proving cancelled**. Which means your Provers failing to submit Proof on Epoch.
 
-## 1. Install Dependencies
+### 1. Install Dependencies
+
 `sudo apt-get update && sudo apt-get upgrade -y`
 `sudo apt install curl iptables build-essential git wget lz4 jq make gcc nano automake autoconf tmux htop nvme-cli libgbm1 pkg-config libssl-dev libleveldb-dev tar clang bsdmainutils ncdu unzip libleveldb-dev  -y`
 `sudo apt update -y && sudo apt upgrade -y
@@ -35,18 +36,22 @@ sudo systemctl enable docker
 sudo systemctl restart docker`
 
 ## 2. Install Aztec tools
+
 `bash -i <(curl -s https://install.aztec.network)
 echo 'export PATH="$HOME/.aztec/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc`
+
 Check if you installed successfully, run: aztec -V
 
 ## 3. Allow some ports
-`sudo ufw allow 22
+`
+sudo ufw allow 22
 sudo ufw allow ssh
 sudo ufw enable
 sudo ufw allow 8080
 sudo ufw allow 40400
-sudo ufw allow 40400/udp`
+sudo ufw allow 40400/udp
+`
 
 ## 4. Run Prover Node
 `mkdir prover`
@@ -54,9 +59,10 @@ sudo ufw allow 40400/udp`
 `nano docker-compose.yml`
 
 ### Using Docker Compose
+
 Paste this into the docker-compose.yml :
-`
-name: aztec-prover
+
+`name: aztec-prover
 services:
   prover-node:
     image: aztecprotocol/aztec:latest # Always refer to the docs to check that you're using the correct image.
@@ -132,8 +138,8 @@ services:
     volumes:
       - ./data-broker:/data-broker
     entrypoint: >
-      sh -c 'node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --network alpha-testnet --prover-broker'
-`
+      sh -c 'node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --network alpha-testnet --prover-broker' `
+
 - Save it by CTRL + XY
 - Then, run the Node Docker
 `docker compose up -d`
