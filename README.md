@@ -22,9 +22,7 @@ The Prover node uses high resource than the Secuencer Node. If you running on lo
 ### 1. Install Dependencies
 
 ```sudo apt-get update && sudo apt-get upgrade -y```
-
 ```sudo apt install curl build-essential wget lz4 automake autoconf tmux htop pkg-config libssl-dev tar unzip  -y```
-
 ```
 sudo apt update -y && sudo apt upgrade -y
 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
