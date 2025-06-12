@@ -104,8 +104,8 @@ services:
       DATA_DIRECTORY: /data-prover
       P2P_IP: Your_VPS_IP
       DATA_STORE_MAP_SIZE_KB: "134217728"
-      ETHEREUM_HOSTS: http://:8545 # Your Eexecution layer RPC endpoint
-      L1_CONSENSUS_HOST_URLS: http://:3500 # Your Consensus layer RPC endpoint
+      ETHEREUM_HOSTS: http:IP//:8545 # Your Eexecution layer RPC endpoint
+      L1_CONSENSUS_HOST_URLS: http:IP//:3500 # Your Consensus layer RPC endpoint
       LOG_LEVEL: info
       PROVER_BROKER_HOST: http://broker:8080
       PROVER_PUBLISHER_PRIVATE_KEY: 0xYourPrivatekey # The node needs to publish proofs to L1. Replace with your private key
@@ -152,7 +152,7 @@ services:
     environment:
       DATA_DIRECTORY: /data-broker
       LOG_LEVEL: info
-      ETHEREUM_HOSTS: http://:8545 # Your Execution layer RPC endpoint
+      ETHEREUM_HOSTS: http:IP//:8545 # Your Execution layer RPC endpoint
       P2P_IP: Your_VPS_IP
     volumes:
       - ./data-broker:/data-broker
