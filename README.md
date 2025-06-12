@@ -53,11 +53,17 @@ sudo systemctl restart docker
 Check if you installed successfully, run: aztec -V
 
 ## 3. Allow some ports
+
 ```sudo ufw allow 22```
+
 ```sudo ufw allow ssh```
+
 ```sudo ufw enable```
+
 ```sudo ufw allow 8080```
+
 ```sudo ufw allow 40400```
+
 ```sudo ufw allow 40400/udp```
 
 ## 4. Run Prover Node
