@@ -55,6 +55,7 @@ Check if you installed successfully, run: aztec -V
 ## 3. Allow some ports
 
 ```sudo ufw allow 22```
+
 ```sudo ufw allow ssh```
 
 ```sudo ufw enable```
