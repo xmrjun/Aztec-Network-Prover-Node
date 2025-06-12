@@ -59,7 +59,9 @@ Check if you installed successfully, run: aztec -V
 
 ## 4. Run Prover Node
 ```mkdir prover```
+
 ```cd prover```
+
 ```nano docker-compose.yml```
 
 ### Using Docker Compose
