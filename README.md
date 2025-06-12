@@ -50,23 +50,24 @@ sudo systemctl restart docker
 Check if you installed successfully, run: aztec -V
 
 ## 3. Allow some ports
-`sudo ufw allow 22``
-`sudo ufw allow ssh`
-`sudo ufw enable`
-`sudo ufw allow 8080`
-`sudo ufw allow 40400`
-`sudo ufw allow 40400/udp`
+```sudo ufw allow 22```
+```sudo ufw allow ssh```
+```sudo ufw enable```
+```sudo ufw allow 8080```
+```sudo ufw allow 40400```
+```sudo ufw allow 40400/udp```
 
 ## 4. Run Prover Node
-`mkdir prover`
-`cd prover`
-`nano docker-compose.yml`
+```mkdir prover```
+```cd prover```
+```nano docker-compose.yml```
 
 ### Using Docker Compose
 
 Paste this into the docker-compose.yml :
 
-`name: aztec-prover
+```
+name: aztec-prover
 services:
   prover-node:
     image: aztecprotocol/aztec:latest # Always refer to the docs to check that you're using the correct image.
@@ -142,7 +143,8 @@ services:
     volumes:
       - ./data-broker:/data-broker
     entrypoint: >
-      sh -c 'node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --network alpha-testnet --prover-broker' `
+      sh -c 'node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --network alpha-testnet --prover-broker'
+```
 
 - Save it by CTRL + XY
 - Then, run the Node Docker
