@@ -101,8 +101,8 @@ services:
       DATA_DIRECTORY: /data-prover
       P2P_IP: Your_VPS_IP
       DATA_STORE_MAP_SIZE_KB: "134217728"
-      ETHEREUM_HOSTS: http:IP//:8545 # Your Eexecution layer RPC endpoint
-      L1_CONSENSUS_HOST_URLS: http:IP//:3500 # Your Consensus layer RPC endpoint
+      ETHEREUM_HOSTS:  # Your Eexecution layer RPC endpoint
+      L1_CONSENSUS_HOST_URLS:  # Your Consensus layer RPC endpoint
       LOG_LEVEL: info
       PROVER_BROKER_HOST: http://broker:8080
       PROVER_PUBLISHER_PRIVATE_KEY: 0xYourPrivatekey # The node needs to publish proofs to L1. Replace with your private key
@@ -127,7 +127,7 @@ services:
     entrypoint: >
       sh -c 'node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --network alpha-testnet --prover-agent'
     environment:
-      PROVER_AGENT_COUNT: "3" # Can be increased if you want more Agents
+      PROVER_AGENT_COUNT: "3" # You can increase or decrease
       PROVER_AGENT_POLL_INTERVAL_MS: "10000" # Just to reduce the log spamming if you're using debug logging.
       PROVER_BROKER_HOST: http://broker:8080
       PROVER_ID: 0xYourAddress # this should be the address corresponding to the PROVER_PUBLISHER_PRIVATE_KEY you set on the node.
@@ -149,7 +149,7 @@ services:
     environment:
       DATA_DIRECTORY: /data-broker
       LOG_LEVEL: info
-      ETHEREUM_HOSTS: http:IP//:8545 # Your Execution layer RPC endpoint
+      ETHEREUM_HOSTS:  # Your Execution layer RPC endpoint
       P2P_IP: Your_VPS_IP
     volumes:
       - ./data-broker:/data-broker
