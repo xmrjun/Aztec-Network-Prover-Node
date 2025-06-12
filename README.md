@@ -42,7 +42,9 @@ sudo systemctl restart docker
 ## 2. Install Aztec tools
 
 ```bash -i <(curl -s https://install.aztec.network)```
+
 ```echo 'export PATH="$HOME/.aztec/bin:$PATH"' >> ~/.bashrc```
+
 ```source ~/.bashrc```
 
 Check if you installed successfully, run: aztec -V
