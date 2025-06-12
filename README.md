@@ -16,6 +16,8 @@ Prover is intended to generates ZK Proofs that attest to roll-up.
 
 You need that minimum specs, don't go lower spec from that because likely you will face an **Error Stopping job due to deadline hit** and **Error: Epoch proving failed: Proving cancelled**. Which means your Provers failing to submit Proof on Epoch because your Hardware can't catch the deadline.
 
+*You can rent servers from Servarica (https://servarica.com). It's likely the Cheapest option per month AFAIK*
+
 ### 1. Install Dependencies
 
 ```sudo apt-get update && sudo apt-get upgrade -y```
