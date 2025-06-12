@@ -9,8 +9,11 @@ Prover is intended to generates ZK Proofs that attest to roll-up.
 
 ### Hardware Minimum Requirements
 **RAM** 96 GB
+
 **CPU** 32 Cores
+
 **DISK** 1 TB SSD
+
 You need that minimum specs, don't go lower spec from that because likely you will face an **Error Stopping job due to deadline hit** and **Error: Epoch proving failed: Proving cancelled**. Which means your Provers failing to submit Proof on Epoch.
 
 ### 1. Install Dependencies
