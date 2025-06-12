@@ -187,6 +187,7 @@ You will get logs like this:
 ### Also you can check your Prover Address on Sepolia Etherscan
 
 link: sepolia.etherscan.io
+
 *Normally, your node should make 3 txs in every hour as far i know, assuming 22 minutes every Epoch*
 
 
