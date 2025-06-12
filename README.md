@@ -19,7 +19,7 @@ You need that minimum specs, don't go lower spec from that because likely you wi
 
 ```sudo apt install curl iptables build-essential git wget lz4 jq make gcc nano automake autoconf tmux htop nvme-cli libgbm1 pkg-config libssl-dev libleveldb-dev tar clang bsdmainutils ncdu unzip libleveldb-dev  -y```
 
-```sudo apt update -y && sudo apt upgrade -y
+sudo apt update -y && sudo apt upgrade -y
 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
 
 sudo apt-get update
@@ -35,13 +35,15 @@ echo \
   
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo systemctl enable docker
-sudo systemctl restart docker```
+sudo systemctl restart docker
 
 ## 2. Install Aztec tools
 
-`bash -i <(curl -s https://install.aztec.network)
-echo 'export PATH="$HOME/.aztec/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc`
+```bash -i <(curl -s https://install.aztec.network)```
+
+```echo 'export PATH="$HOME/.aztec/bin:$PATH"' >> ~/.bashrc```
+
+```source ~/.bashrc```
 
 Check if you installed successfully, run: aztec -V
 
