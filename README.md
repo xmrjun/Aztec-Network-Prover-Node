@@ -8,14 +8,14 @@ Prover is intended to generates ZK Proofs that attest to roll-up.
 - Use different wallet if you are running Sequncer Nodes, it's not recommended to use the same wallet because there might be a Nonce Issue if both Prover and Sequencer node submits Txs at the same time. Although there is some of node runner still use the same wallet and it still work, it's better to stay on the safe side.
 - Also, use different server if you running Sequencer Nodes to avoid port conflict.
 
-### Hardware Minimum Requirements
+### Hardware Recommended Requirements
 **RAM** 96 GB
 
 **CPU** 32 Cores
 
 **DISK** 1 TB SSD
 
-You need that minimum specs, don't go lower spec from that because likely you will face an **Error Stopping job due to deadline hit** and **Error: Epoch proving failed: Proving cancelled**. Which means your Provers failing to submit Proof on Epoch because your Hardware can't catch the deadline.
+The Prover node uses high resource. If you running on low specs machine, you will likely face an **Error Stopping job due to deadline hit** and **Error: Epoch proving failed: Proving cancelled**. Which means your Provers failing to submit Proof on Epoch because your Hardware can't catch the deadline.
 
 *You can rent servers from Servarica (https://servarica.com). It's likely the Cheapest option per month AFAIK*
 
