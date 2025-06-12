@@ -1,7 +1,7 @@
 # Aztec-Network-Prover-Node
 
 A step by step to run *Prover Node* on Aztec Network Testnet.
-Prover is intended to generates ZK Proofs that attest to roll-up.
+Prover is intended to generates ZK Proofs that attest to rollup integrity that is pivotal to the protocol.
 
 ### Notes: 
 - Running this activity didn't guarantee you an Airdrop/incentivized activity. Do this as a Hobby!
