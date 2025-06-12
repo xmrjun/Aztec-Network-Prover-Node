@@ -149,27 +149,43 @@ services:
 ```
 
 - Save it by CTRL + XY
+
 - Then, run the Node Docker
-`docker compose up -d`
+
+```docker compose up -d```
+
 - See the Docker Status
-`docker ps`
-- Monitoring the Prover logs
-`docker logs -f aztec-prover-prover-node-1`
+
+```docker ps```
+
 - Optional: Stop and kill node
-`docker compose down -v`
+
+```docker compose down -v```
 
 ## Useful Command
+
+- Monitoring the Prover logs
+
+```docker logs -f aztec-prover-prover-node-1```
+
 ### Check if your prover are working
-`docker logs -f aztec-prover-prover-node-1  2>&1 | grep --line-buffered -E 'epoch proved|epoch'`
+
+```docker logs -f aztec-prover-prover-node-1  2>&1 | grep --line-buffered -E 'epoch proved|epoch'```
+
 You will get logs like this:
+
 ![image](https://github.com/user-attachments/assets/13ea3461-52fd-49ca-b430-e6497ce3e046)
 
 ### Check if you succesfully Submitted Proof of an Epoch
-`docker logs -f aztec-prover-prover-node-1  2>&1 | grep --line-buffered -E 'Submitted'`
+
+```docker logs -f aztec-prover-prover-node-1  2>&1 | grep --line-buffered -E 'Submitted'```
+
 You will get logs like this:
+
 ![image](https://github.com/user-attachments/assets/b8d5da90-3966-4be5-9894-1fcbb44e525d)
 
 ### Also you can check your Prover Address on Sepolia Etherscan
+
 link: sepolia.etherscan.io
 *Normally, your node should make 3 txs in every hour as far i know, assuming 22 minutes every Epoch*
 
