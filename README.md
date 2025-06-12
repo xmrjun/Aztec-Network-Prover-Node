@@ -100,7 +100,7 @@ services:
         required: true
     environment:
 #     PROVER_COORDINATION_NODE_URL: " " # this can point to your own validator - or just simply ignore this
-#     P2P_ENABLED: "true" # Switch to false if you provide a PROVER_COORDINATION_NODE_URL - or just ignore this
+      P2P_ENABLED: "true" # Switch to false if you provide a PROVER_COORDINATION_NODE_URL
       DATA_DIRECTORY: /data-prover
       P2P_IP: Your_VPS_IP
       DATA_STORE_MAP_SIZE_KB: "134217728"
@@ -130,7 +130,7 @@ services:
     entrypoint: >
       sh -c 'node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --network alpha-testnet --prover-agent'
     environment:
-      PROVER_AGENT_COUNT: "2" # Can be increased if you want more Agents
+      PROVER_AGENT_COUNT: "3" # Can be increased if you want more Agents
       PROVER_AGENT_POLL_INTERVAL_MS: "10000" # Just to reduce the log spamming if you're using debug logging.
       PROVER_BROKER_HOST: http://broker:8080
       PROVER_ID: 0xYourAddress # this should be the address corresponding to the PROVER_PUBLISHER_PRIVATE_KEY you set on the node.
