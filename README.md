@@ -13,7 +13,7 @@ Prover is intended to generates ZK Proofs that attest to roll-up.
 
 **CPU** 32 Cores
 
-**DISK** 1 TB SSD
+**DISK** 1TB+ SSD
 
 The Prover node uses high resource than the Secuencer Node. If you running on low specs machine, you will likely face an **Error Stopping job due to deadline hit** and **Error: Epoch proving failed: Proving cancelled**. Which means your Provers failing to submit Proof on Epoch because your Hardware can't catch the deadline.
 
