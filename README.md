@@ -218,8 +218,9 @@ You will get logs like this:
 
 ### Also you can check your Prover Address on Sepolia Etherscan
 
-link: https://sepolia.etherscan.io
+Paste your Prover address on: https://sepolia.etherscan.io
 
-*Normally, your node should make 1-3 txs in every hour as far i know, assuming 22 minutes every Epoch*
+![image](https://github.com/user-attachments/assets/88b7dc60-43c0-4d12-973a-9debb49b48d9)
 
+*Thankyou and Enjoy Proving on Aztec Network!*
 
