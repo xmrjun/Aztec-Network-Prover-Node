@@ -193,6 +193,10 @@ services:
 
 ```docker compose down -v```
 
+- Restarting the docker
+
+```docker compose down -v && docker compose up -d```
+
 ## Useful Command
 
 - Monitoring the Prover logs
