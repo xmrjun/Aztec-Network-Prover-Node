@@ -16,7 +16,7 @@ Although there is some of node runner still use the same wallet and it still wor
 
 **DISK** 1TB+ SSD
 
-The Prover node uses a really high resource than the Secuencer Node. If you running on low specs machine, you will likely face an **Error Stopping job due to deadline hit** and **Error: Epoch proving failed: Proving cancelled**. Which means your Provers failing to submit Proof on Epoch because your Hardware can't catch the deadline.
+The Prover node uses a really high resource than the Secuencer Node. If you running on low specs machine, you will likely face an **Error Stopping job due to deadline hit** and **Error: Epoch proving failed: Proving cancelled**. Which means your Provers failing to submit Proof on Epoch because your Hardware can't catch the Epoch deadline.
 
 *You can rent servers from Servarica (https://servarica.com). 32core starts from $50 on there , it's likely the Cheapest option currently AFAIK*
 
