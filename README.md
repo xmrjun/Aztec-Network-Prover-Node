@@ -16,7 +16,7 @@ Although there is some of node runner still use the same wallet and it still wor
 
 **DISK** 1TB+ SSD
 
-The Prover node uses a really high resource than the Secuencer Node, you can go with Higher machine specs than that. 
+The Prover node uses a really high resource than the Secuencer Node, you can go with Higher machine specs than my recommended one. 
 
 If you running on low specs machine, you will likely face an **Error Stopping job due to deadline hit** and **Error: Epoch proving failed: Proving cancelled**. 
 
