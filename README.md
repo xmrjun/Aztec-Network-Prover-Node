@@ -76,9 +76,25 @@ Check if you installed successfully, run: aztec -V
 
 ```cd prover```
 
-```nano docker-compose.yml```
+### Create .env file
+
+```nano .env```
+
+Paste this inside the .env and fill your data
+
+```
+P2P_IP=Your_VPS_IP
+ETHEREUM_HOSTS=Your_Execution_Layer_RPC_Endpoint
+L1_CONSENSUS_HOST_URLS=Your_Consensus_Layer_RPC_Endpoint
+PROVER_PUBLISHER_PRIVATE_KEY=0xYourPrivatekey
+PROVER_ID=0xYourAddress
+```
+
+Save it, CTRL + XY
 
 ### Using Docker Compose
+
+```nano docker-compose.yml```
 
 Paste this into the docker-compose.yml :
 
@@ -86,7 +102,7 @@ Paste this into the docker-compose.yml :
 name: aztec-prover
 services:
   prover-node:
-    image: aztecprotocol/aztec:latest # Always refer to the docs to check that you're using the correct image.
+    image: aztecprotocol/aztec:latest
     command:
       - node
       - --no-warnings
@@ -101,16 +117,16 @@ services:
         condition: service_started
         required: true
     environment:
-#     PROVER_COORDINATION_NODE_URL: " " # this can point to your own validator - or just simply ignore this
-      P2P_ENABLED: "true" # Switch to false if you provide a PROVER_COORDINATION_NODE_URL
+      # PROVER_COORDINATION_NODE_URL: " " # Optional, commented out as per original
+      P2P_ENABLED: "true"
       DATA_DIRECTORY: /data-prover
-      P2P_IP: Your_VPS_IP
+      P2P_IP: ${P2P_IP}
       DATA_STORE_MAP_SIZE_KB: "134217728"
-      ETHEREUM_HOSTS:  # Your Eexecution layer RPC endpoint
-      L1_CONSENSUS_HOST_URLS:  # Your Consensus layer RPC endpoint
+      ETHEREUM_HOSTS: ${ETHEREUM_HOSTS}
+      L1_CONSENSUS_HOST_URLS: ${L1_CONSENSUS_HOST_URLS}
       LOG_LEVEL: info
       PROVER_BROKER_HOST: http://broker:8080
-      PROVER_PUBLISHER_PRIVATE_KEY: 0xYourPrivatekey # The node needs to publish proofs to L1. Replace with your private key
+      PROVER_PUBLISHER_PRIVATE_KEY: ${PROVER_PUBLISHER_PRIVATE_KEY}
     ports:
       - "8080:8080"
       - "40400:40400"
@@ -119,8 +135,9 @@ services:
       - ./data-prover:/data-prover
     entrypoint: >
       sh -c 'node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --network alpha-testnet --archiver --prover-node'
+
   agent:
-    image: aztecprotocol/aztec:latest # Always refer to the docs to check that you're using the correct image.
+    image: aztecprotocol/aztec:latest
     command:
       - node
       - --no-warnings
@@ -132,17 +149,17 @@ services:
     entrypoint: >
       sh -c 'node --no-warnings /usr/src/yarn-project/aztec/dest/bin/index.js start --network alpha-testnet --prover-agent'
     environment:
-      PROVER_AGENT_COUNT: "3" # You can increase or decrease
-      PROVER_AGENT_POLL_INTERVAL_MS: "10000" # Just to reduce the log spamming if you're using debug logging.
+      PROVER_AGENT_COUNT: "3"
+      PROVER_AGENT_POLL_INTERVAL_MS: "10000"
       PROVER_BROKER_HOST: http://broker:8080
-      PROVER_ID: 0xYourAddress # this should be the address corresponding to the PROVER_PUBLISHER_PRIVATE_KEY you set on the node.
+      PROVER_ID: ${PROVER_ID}
     pull_policy: always
     restart: unless-stopped
     volumes:
       - ./data-prover:/data-prover
 
   broker:
-    image: aztecprotocol/aztec:latest # Always refer to the docs to check that you're using the correct image.
+    image: aztecprotocol/aztec:latest
     command:
       - node
       - --no-warnings
@@ -154,8 +171,8 @@ services:
     environment:
       DATA_DIRECTORY: /data-broker
       LOG_LEVEL: info
-      ETHEREUM_HOSTS:  # Your Execution layer RPC endpoint
-      P2P_IP: Your_VPS_IP
+      ETHEREUM_HOSTS: ${ETHEREUM_HOSTS}
+      P2P_IP: ${P2P_IP}
     volumes:
       - ./data-broker:/data-broker
     entrypoint: >
