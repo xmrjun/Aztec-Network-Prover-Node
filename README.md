@@ -4,7 +4,7 @@ A step by step to run *Prover Node* on Aztec Network Testnet.
 Prover is intended to generates ZK Proofs that attest to rollup integrity that is pivotal to the protocol.
 
 ### Notes: 
-- There is no Airdrop on Aztec Network Testnet activity, either Prover nodes or Sequencer nodes or anything. Do this as a Hobby!
+- Doing this activity didn't guarantee you an Airdrop. Either it's a Prover node or Sequencer node. Do it as a Hobby!
 - Use different wallet if you are running Sequncer Nodes, it's not recommended to use the same wallet because there might be a Nonce Issue if both Prover and Sequencer node submits Txs at the same time.
 Although there is some of node runner still use the same wallet and it still work, it's better to avoid any serious problem.
 - Also, use different server if you running Sequencer Nodes to avoid port conflict.
