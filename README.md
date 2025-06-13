@@ -117,7 +117,7 @@ services:
         condition: service_started
         required: true
     environment:
-      # PROVER_COORDINATION_NODE_URL: " " # Optional, commented out as per original
+      # PROVER_COORDINATION_NODE_URL: " " # Optional, this can point to your own validator - or just simply ignore this
       P2P_ENABLED: "true"
       DATA_DIRECTORY: /data-prover
       P2P_IP: ${P2P_IP}
