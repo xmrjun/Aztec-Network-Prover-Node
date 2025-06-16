@@ -9,7 +9,7 @@ Prover is intended to generates ZK Proofs that attest to rollup integrity that i
 Although there is some of node runner still use the same wallet and it still work, it's better to avoid any serious problem.
 - Also, use different server if you running Sequencer Nodes to avoid port conflict.
 
-### Hardware Recommended Requirements
+### Hardware Minimum Requirements
 **RAM** 128 GB+
 
 **CPU** 32 Cores
