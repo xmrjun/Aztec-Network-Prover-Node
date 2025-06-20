@@ -22,7 +22,9 @@ If you running on low specs machine, you will likely face an **Error Stopping jo
 
 Which means your Provers failing to submit Proof on Epoch because your Hardware can't catch the Epoch deadline.
 
-*You can rent servers from Servarica (https://servarica.com). 32core starts from $50 on there , it's likely the Cheapest option currently AFAIK*
+*You can rent servers from Servarica (https://servarica.com). it's likely the Cheapest option currently but often ran out stock* 
+
+*Or see Dedicated server from Hetzner (https://www.hetzner.com/dedicated-rootserver/). Good for quality machine*
 
 ### 1. Install Dependencies
 
