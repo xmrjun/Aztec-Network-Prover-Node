@@ -10,9 +10,9 @@ Although there is some of node runner still use the same wallet and it still wor
 - Also, use different server if you running Sequencer Nodes to avoid port conflict.
 
 ### Hardware Minimum Requirements
-**RAM** 128 GB+
+**RAM** 256 GB+
 
-**CPU** 32 Cores
+**CPU** 64 Cores
 
 **DISK** 1TB+ SSD
 
