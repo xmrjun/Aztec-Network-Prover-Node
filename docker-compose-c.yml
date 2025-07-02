@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  prover-agent-1:
+    image: aztecprotocol/aztec:latest
+    container_name: prover-agent-c
+    command: start --prover-agent
+    environment:
+      - PROVER_AGENT_COUNT=40
+      - PROVER_BROKER_HOST=http://162.120.19.25:8081
+      - LOG_LEVEL=info
+      - PROVER_AGENT_WORKER_THREADS=16
+    restart: unless-stopped
+    networks:
+      - prover-network
+    volumes:
+      - prover-data:/tmp
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  prover-network:
+    driver: bridge
+
+volumes:
+  prover-data:
+    driver: local
