@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  prover-agent-1:
+    image: aztecprotocol/aztec:latest
+    container_name: prover-agent-c
+    command: start --prover-agent
+    env_file:
+      - .env
+    environment:
+      - PROVER_AGENT_COUNT=${PROVER_AGENT_COUNT:-50}
+      - PROVER_BROKER_HOST=${PROVER_BROKER_HOST:-http://162.120.19.25:8081}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - PROVER_AGENT_WORKER_THREADS=${PROVER_AGENT_WORKER_THREADS:-16}
+      - NODE_OPTIONS=${NODE_OPTIONS:---max-old-space-size=8192}
+    restart: unless-stopped
+    networks:
+      - prover-network
+    volumes:
+      - prover-data:/tmp
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      resources:
+        limits:
+          cpus: '70'
+          memory: 200G
+        reservations:
+          cpus: '50'
+          memory: 100G
+
+networks:
+  prover-network:
+    driver: bridge
+
+volumes:
+  prover-data:
+    driver: local
