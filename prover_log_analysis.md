@@ -111,3 +111,46 @@ The system processes individual transactions through AVM (Aztec Virtual Machine)
 2. **Network Considerations**: Large CRS downloads (33MB+) on startup
 3. **Transaction Throughput**: 17+ concurrent AVM circuit proofs indicate high TX volume
 4. **Multi-Machine Coordination**: Both machines operating on consecutive epochs successfully
+
+## 🚨 Current System Status (Real-time Monitoring)
+
+### Container Health ✅
+- **prover-node-1**: Running (3 minutes uptime)
+- **broker-1**: Running (3 minutes uptime) 
+- **agent-1**: Running (3 minutes uptime)
+- **Network Ports**: 8080, 8081, 40400 accessible
+
+### ⚠️ Performance Alerts
+
+#### Critical Resource Usage
+- **agent-1 Container**: 
+  - 🔴 **CPU**: 10,698% (极度异常 - 可能指标错误或真实过载)
+  - 🔴 **Memory**: 292.8GiB / 373.5GiB (78% - 接近上限)
+- **System Memory**: 88.5% (高使用率)
+
+#### Network Issues
+- **Stream Reset Errors**: P2P连接中出现多次 `ERR_STREAM_RESET`
+- **Error Summary**: 28总错误，9网络连接错误
+- **Impact**: 可能影响节点间通信
+
+### 📊 Blockchain Status
+- **Block Processing**: 正常处理区块53225 (slot 97801)
+- **Transaction Retrieval**: 成功获取3/3交易
+- **P2P Performance**: 从mempool获取交易，P2P网络功能正常
+
+## 🔧 立即需要处理的问题
+
+### 1. Agent容器资源异常 🚨
+```bash
+# 检查agent容器详细状态
+docker stats aztec-prover-agent-1 --no-stream
+docker exec aztec-prover-agent-1 top -b -n1
+```
+
+### 2. P2P网络稳定性 ⚠️
+- 多个stream reset可能影响同步性能
+- 建议监控peer连接状态
+
+### 3. 内存管理 📈
+- 系统内存使用88.5%，接近警戒线
+- agent容器内存使用292GB需要调查
