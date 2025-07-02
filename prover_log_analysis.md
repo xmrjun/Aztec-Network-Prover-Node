@@ -126,22 +126,33 @@ The system processes individual transactions through AVM (Aztec Virtual Machine)
 - **System Memory**: 88.5% (高使用率)
 - **Network Issues**: P2P连接错误，总错误28次
 
-### B Machine (Worker Node) - Current Status ✅
+### B Machine (Worker Node) - Updated Status ⚠️
 #### Architecture 🔍
-- **专用Worker节点**: 仅运行 `aztec-prover-agent-1`
-- **无本地Broker**: 连接外部broker进行任务分配
-- **无Prover Node**: 专注于证明计算任务
+- **专用Worker节点**: 运行双agent容器 (发现异常)
+- **Broker连接**: 正确配置到 `162.120.19.25:8080`
+- **专注任务**: 证明计算任务执行
 
-#### Container Health ✅
-- **agent-1**: Running (19 minutes uptime)
-- **CPU使用**: 0.08% (极低，正常)
-- **Memory使用**: 432MB / 377GB (0.1% - 非常健康)
-- **System Memory**: 7.5% (优秀)
+#### Container Health Analysis 🔍
+**双Agent运行状态**：
+- **prover-agent-1**: 
+  - ⏱️ Running (10 minutes uptime)
+  - 🔴 **CPU**: 8,455% (极高负载 - 正在执行大量计算)
+  - 🟡 **Memory**: 16.52GB / 377GB (4.4%)
+  
+- **aztec-prover-agent-1**: 
+  - ⏱️ Running (25 minutes uptime)  
+  - ✅ **CPU**: 0.05% (空闲状态)
+  - ✅ **Memory**: 433MB / 377GB (0.1%)
+
+#### System Resource Status
+- **System Memory**: 19GB/377GB (5% - 优秀)
+- **CPU Load**: 296.40 (⚠️ 极高系统负载)
+- **磁盘**: 1% 使用率 (充足)
 
 #### Status Summary
-- ❌ **Broker连接失败** (预期行为 - 连接外部broker)
-- ✅ **错误数量**: 仅1个 (正常范围)
-- ✅ **资源使用**: 极低且稳定
+- ✅ **Broker连接配置**: 正确配置到 `162.120.19.25:8080`
+- ⚠️ **双Agent运行**: 发现两个agent容器同时运行
+- 🔴 **资源异常**: `prover-agent-1` CPU 8,455% (高负载计算)
 
 ### 📊 Blockchain Status
 - **Block Processing**: 正常处理区块53225 (slot 97801)
@@ -165,34 +176,63 @@ The system processes individual transactions through AVM (Aztec Virtual Machine)
 - **连接**: 连接到A机器或其他broker获取任务
 - **状态**: ✅ 运行良好，资源使用极低
 
-### 🔄 当前问题状态
+### 🔄 B机器详细状态分析
 
-#### ✅ 已解决问题
-- **高CPU使用率**: B机器agent现在仅0.08% CPU
-- **内存压力**: B机器系统内存降至7.5%
-- **Agent稳定性**: 运行19分钟无重启
+#### 🔍 重要发现
+1. **双Agent架构**: 同时运行两个不同的agent容器
+2. **负载分布不均**: 
+   - `prover-agent-1`: 执行高强度计算任务
+   - `aztec-prover-agent-1`: 处于空闲状态
+3. **网络配置正确**: Broker地址指向 `162.120.19.25:8080`
+4. **Agent配置**: `PROVER_AGENT_COUNT=20` (支持20个并行agent)
 
-#### ⚠️ 需要关注
-- **Broker连接**: B机器无法连接到broker (需要配置网络连接)
-- **网络架构**: 确保A机器broker可以向B机器agent分发任务
+#### ⚠️ 需要立即关注
+1. **系统负载极高**: Load Average 296.40 (正常应 < 核心数)
+2. **CPU超负荷**: `prover-agent-1` 使用8,455% CPU
+3. **资源利用不均**: 两个agent容器负载差异巨大
+4. **潜在配置冲突**: 双agent可能存在竞争关系
 
 ### 🛠️ 配置建议
 
-#### 1. 网络连接配置
+#### 1. 🚨 立即处理双Agent问题
 ```bash
-# 检查B机器能否连接到A机器的broker
-curl -f http://A_MACHINE_IP:8081/health || echo "需要配置网络连接"
+# 检查两个容器的详细配置差异
+docker inspect prover-agent-1 | grep -A10 -B10 "PROVER"
+docker inspect aztec-prover-agent-1 | grep -A10 -B10 "PROVER"
+
+# 考虑停止其中一个agent来避免冲突
+# 建议停止较新的 prover-agent-1 (运行时间较短)
+docker stop prover-agent-1
 ```
 
-#### 2. Agent配置验证
+#### 2. 🔍 验证网络连接
 ```bash
-# 检查agent的broker连接配置
-docker exec aztec-prover-agent-1 env | grep -i broker
+# 测试到正确broker地址的连接
+curl -f http://162.120.19.25:8080/health || echo "Broker连接失败"
+
+# 检查网络连通性
+ping -c 3 162.120.19.25
+traceroute 162.120.19.25
 ```
 
-#### 3. 性能优化
-- **A机器**: 考虑增加内存或优化任务分发策略
-- **B机器**: 资源使用极低，可以承担更多任务
+#### 3. 📊 资源监控和优化
+```bash
+# 持续监控系统负载
+watch -n 5 "uptime && docker stats --no-stream"
+
+# 检查CPU核心数
+nproc
+# 如果负载 > 核心数×2，需要调整任务并发数
+```
+
+#### 4. ⚙️ Agent配置优化
+```bash
+# 检查当前agent配置
+docker exec aztec-prover-agent-1 env | grep PROVER
+
+# 如果系统负载过高，考虑降低并发数
+# 编辑 docker-compose.yml 中的 PROVER_AGENT_COUNT
+```
 
 ### 🔧 诊断工具
 
@@ -210,19 +250,38 @@ docker exec aztec-prover-agent-1 env | grep -i broker
 
 ## 🎯 总结与建议
 
-### ✅ 系统状态良好
-1. **B机器Worker节点**: 运行稳定，资源使用极低
-2. **证明任务处理**: 在epoch 3055中成功处理20+并行任务
-3. **架构设计**: 分布式设置允许高效的负载分布
+### 🔍 当前状态评估
 
-### 🔄 下一步行动
-1. **配置网络连接**: 确保B机器agent可以连接到A机器broker
-2. **监控扩展**: 设置跨机器的统一监控
-3. **负载平衡**: 验证任务是否正确分布到worker节点
+#### ✅ 正面表现
+1. **网络配置正确**: B机器正确连接到broker (`162.120.19.25:8080`)
+2. **计算能力强**: 成功执行高强度证明任务
+3. **内存充足**: 377GB总内存，使用率仅5%
+4. **架构功能**: 分布式prover系统基本运行正常
 
-### 📊 性能指标追踪
-- **A机器**: 监控内存使用和P2P连接稳定性
-- **B机器**: 监控任务接收率和执行效率
-- **整体**: 跟踪epoch处理时间和成功率
+#### ⚠️ 需要优化
+1. **双Agent冲突**: 两个agent容器可能造成资源竞争
+2. **负载过高**: 系统负载296远超正常范围
+3. **CPU超负荷**: 单个agent占用8,455% CPU
+4. **资源分配不均**: 负载集中在一个容器
 
-您的分布式prover系统架构合理，运行状态良好！主要需要完善网络连接配置以充分利用worker节点的计算能力。
+### � 紧急行动计划
+
+#### 立即执行 (优先级: 🚨)
+1. **解决双Agent问题**: 停止冲突的 `prover-agent-1`
+2. **监控系统负载**: 确保负载不超过CPU核心数限制
+3. **验证网络连接**: 测试到broker的连接状态
+
+#### 短期优化 (优先级: ⚠️)
+1. **调整并发数**: 根据CPU核心数优化 `PROVER_AGENT_COUNT`
+2. **资源监控**: 设置持续的性能监控
+3. **配置审核**: 检查docker-compose配置一致性
+
+### 📊 监控重点
+
+- **A机器**: P2P同步、内存使用、任务分发效率
+- **B机器**: 系统负载、agent性能、网络连接稳定性
+- **整体**: epoch处理时间、任务成功率、资源利用率
+
+### 💡 建议
+
+您的分布式架构**基础良好**，但需要解决双agent冲突和负载平衡问题。解决这些问题后，系统应该能高效稳定运行。
